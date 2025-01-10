@@ -1,6 +1,6 @@
 mod utils;
 mod perf_timer;
-mod textureGen;
+mod texture_gen;
 mod radix_simd;
 mod radix;
 
@@ -21,7 +21,7 @@ pub fn generate_splat_texture_from_attrs(
     colors: &Uint8Array,
     count: usize
 ) -> Result<Object, JsValue> {
-    let texture_data = textureGen::generate_texture_from_attrs(
+    let texture_data = texture_gen::generate_texture_from_attrs(
         positions,
         scales,
         rotations,
