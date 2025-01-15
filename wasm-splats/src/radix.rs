@@ -1,6 +1,5 @@
+use js_sys::{Float32Array, Uint32Array, Uint8Array};
 use wasm_bindgen::prelude::*;
-use js_sys::{Float32Array, Uint8Array, Uint32Array, WebAssembly};
-use wasm_bindgen::JsCast;
 
 #[wasm_bindgen]
 pub fn radix_sort_gaussians_attrs(
@@ -11,11 +10,12 @@ pub fn radix_sort_gaussians_attrs(
     model_view: &Float32Array,
     count: usize,
 ) -> Result<js_sys::Array, JsValue> {
-    if positions.length() as usize != count * 3 
-        || scales.length() as usize != count * 3 
-        || rotations.length() as usize != count * 4 
-        || colors.length() as usize != count * 4 
-        || model_view.length() != 16 {
+    if positions.length() as usize != count * 3
+        || scales.length() as usize != count * 3
+        || rotations.length() as usize != count * 4
+        || colors.length() as usize != count * 4
+        || model_view.length() != 16
+    {
         return Err(JsValue::from_str("Invalid array lengths"));
     }
 
@@ -28,10 +28,10 @@ pub fn radix_sort_gaussians_attrs(
     let mut min_depth = f32::INFINITY;
 
     for i in 0..count {
-        let depth = positions_vec[i * 3] * model_view_vec[2] +
-                   positions_vec[i * 3 + 1] * model_view_vec[6] +
-                   positions_vec[i * 3 + 2] * model_view_vec[10];
-        
+        let depth = positions_vec[i * 3] * model_view_vec[2]
+            + positions_vec[i * 3 + 1] * model_view_vec[6]
+            + positions_vec[i * 3 + 2] * model_view_vec[10];
+
         let depth_int = (depth * 4096.0) as i32;
         depth_values[i] = depth_int;
         max_depth = max_depth.max(depth_int as f32);
@@ -127,12 +127,11 @@ pub fn radix_sort_gaussians_attrs(
     Ok(result)
 }
 
-
 #[wasm_bindgen]
 pub fn radix_sort_gaussians_indexes(
     positions: &Float32Array,
     model_view: &Float32Array,
-    texture_width: u32,
+    _texture_width: u32, // TODO: FIGURE OUT IF THIS IS NEEDED.
     count: usize,
 ) -> Result<js_sys::Uint32Array, JsValue> {
     if positions.length() as usize != count * 3 {
@@ -149,9 +148,9 @@ pub fn radix_sort_gaussians_indexes(
     let mut min_depth = f32::INFINITY;
 
     for i in 0..count {
-        let depth = positions_vec[i * 3] * model_view_vec[2] +
-                   positions_vec[i * 3 + 1] * model_view_vec[6] +
-                   positions_vec[i * 3 + 2] * model_view_vec[10];
+        let depth = positions_vec[i * 3] * model_view_vec[2]
+            + positions_vec[i * 3 + 1] * model_view_vec[6]
+            + positions_vec[i * 3 + 2] * model_view_vec[10];
 
         let depth_int = (depth * 4096.0) as i32;
         depth_values[i] = depth_int;
@@ -170,7 +169,7 @@ pub fn radix_sort_gaussians_indexes(
 
     for shift in (0..32).step_by(8) {
         let mut counts = [0u32; 256];
-        
+
         for &depth in depth_values.iter() {
             let byte = ((depth >> shift) & 0xFF) as usize;
             counts[byte] += 1;
@@ -198,7 +197,6 @@ pub fn radix_sort_gaussians_indexes(
 
     let indices_array = Uint32Array::new_with_length(count as u32);
     indices_array.copy_from(&indices);
-    
+
     Ok(indices_array)
 }
-
