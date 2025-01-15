@@ -6,7 +6,8 @@ on:
       - '.github/workflows/wasm-splats-ci.yml'
 
 jobs:
-  test:
+  test_and_lint:
+    name: Testing and Linting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,4 +15,27 @@ jobs:
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-      - run: wasm-pack test wasm-splats --headless --chrome --firefox
+      - name: Run rustfmt
+        run: cargo fmt --all -- --check
+
+      - name: Run clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      # If you're adding a new package, you'll need to duplicate this step for it.
+      - name: Run wasm-splats tests
+        run: wasm-pack test --headless --chrome --firefox
+        working-directory: ./wasm-splats
+  pack:
+    name: Packaging for npm
+    runs-on: ubuntu-latest
+    needs: [test_and_lint]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Package wasm-splats
+        run: wasm-pack build ./wasm-splats --target web --out-dir ./wasm-splats/pkg
+
+      ## TODO: Save artifacts to AWS.
