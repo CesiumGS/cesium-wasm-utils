@@ -13,6 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install latest stable with wasm32-unknown-unknown
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          target: wasm32-unknown-unknown
+          components: rustfmt, clippy
+
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
@@ -26,12 +34,21 @@ jobs:
         run: wasm-pack test --headless --chrome --firefox
         working-directory: ./wasm-splats
 
+  # TODO: Move this to a wasm-splats-deploy.yml file.
   pack:
     name: Packaging for npm
     runs-on: ubuntu-latest
-    needs: [test_and_lint]
+    needs: [ test_and_lint ]
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install latest stable with wasm32-unknown-unknown
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          target: wasm32-unknown-unknown
+          components: rustfmt, clippy
 
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
