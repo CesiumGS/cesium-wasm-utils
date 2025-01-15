@@ -1,0 +1,17 @@
+name: wasm-splats-ci.yml
+on:
+  push:
+    paths:
+      - 'wasm-splats/**'
+      - '.github/workflows/wasm-splats-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - run: wasm-pack test wasm-splats --headless --chrome --firefox
