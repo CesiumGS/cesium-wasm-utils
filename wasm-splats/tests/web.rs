@@ -9,5 +9,6 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn pass() {
-    assert_eq!(1 + 1, 2);
+    let two = 1 + 1;
+    assert_eq!(two, 2);
 }
