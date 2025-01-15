@@ -1,4 +1,5 @@
-name: wasm-splats-ci.yml
+# If you're adding a new package, you'll need to duplicate this workflow for it.
+name: wasm-splats CI
 on:
   push:
     paths:
@@ -19,12 +20,12 @@ jobs:
         run: cargo fmt --all -- --check
 
       - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --all-targets --all-features -- -Dwarnings
 
-      # If you're adding a new package, you'll need to duplicate this step for it.
       - name: Run wasm-splats tests
         run: wasm-pack test --headless --chrome --firefox
         working-directory: ./wasm-splats
+
   pack:
     name: Packaging for npm
     runs-on: ubuntu-latest

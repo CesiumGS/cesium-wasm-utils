@@ -22,8 +22,7 @@ pub fn generate_splat_texture_from_attrs(
     let texture_data =
         texture_gen::generate_texture_from_attrs(positions, scales, rotations, colors, count)?;
 
-    let js_data =
-        Uint32Array::new_with_length(texture_data.width() * texture_data.height() * 4);
+    let js_data = Uint32Array::new_with_length(texture_data.width() * texture_data.height() * 4);
     js_data.copy_from(&texture_data.data());
 
     let result = Object::new();
