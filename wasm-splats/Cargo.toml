@@ -1,7 +1,7 @@
 [package]
 name = "wasm-splats"
 version = "1.0.0"
-authors = ["Jason Sobotka <jason.sobotka@cesium.com>", "Adam Morris <adam.morris@cesium.com>"]
+authors = ["Cesium GS, Inc. <https://cesium.com>"]
 edition = "2021"
 
 [lib]
