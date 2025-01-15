@@ -53,7 +53,7 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
       - name: Build wasm-splats
-        run: wasm-pack build ./wasm-splats --target web --scope cesium --out-dir ./wasm-splats/pkg
+        run: wasm-pack build ./wasm-splats --target web --scope cesium
 
       - name: Pack wasm-splats
         run: wasm-pack pack ./wasm-splats/pkg
