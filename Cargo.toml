@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+    "wasm-splats"
+]
+
+# Profiles must be set at the root level of the `Cargo.toml` file.
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+opt-level = 3
+lto = true
+codegen-units = 1
