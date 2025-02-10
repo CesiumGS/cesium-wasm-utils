@@ -11,7 +11,9 @@ jobs:
     name: Testing and Linting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Install latest stable with wasm32-unknown-unknown
         uses: dtolnay/rust-toolchain@v1
