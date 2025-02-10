@@ -1,6 +1,5 @@
-mod radix;
-mod radix_simd;
-mod texture_gen;
+pub mod radix;
+pub mod texture_gen;
 
 use js_sys::{Float32Array, Object, Uint32Array, Uint8Array};
 use wasm_bindgen::prelude::*;
