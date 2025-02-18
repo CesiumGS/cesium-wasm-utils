@@ -37,12 +37,11 @@ fn test_radix_sort_gaussians_indexes() {
     let test_data = test_data::SortGaussianIndexesTestData::new().unwrap();
     let positions = test_data.get_positions();
     let model_view = test_data.get_model_view();
-    let texture_width = test_data.get_texture_width();
     let count = test_data.get_count();
     let sorted_idx = test_data.get_sorted_idx();
 
     let result =
-        radix_sort_gaussians_indexes(&positions, &model_view, texture_width, count).unwrap();
+        radix_sort_gaussians_indexes(&positions, &model_view, count).unwrap();
 
     check_uint32array(&result, sorted_idx.as_ref()).unwrap();
 }
