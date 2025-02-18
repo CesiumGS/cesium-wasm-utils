@@ -41,7 +41,7 @@ For ideas for Cesium WASM Utilities code contributions, see:
 - issues labeled [`good first issue`](https://github.com/CesiumGS/cesium/labels/good%20first%20issue) and
 - issues labeled [`type - roadmap`](https://github.com/CesiumGS/cesium/labels/type%20-%20roadmap).
 
-See the [Build Guide](Documentation/BuildGuide.md) for how to build and run Cesium on your system.
+See the [README](README.md) for how to build and run Cesium on your system.
 
 Always feel free to introduce yourself on the [Cesium community forum](https://community.cesium.com/) to brainstorm ideas and ask for guidance.
 

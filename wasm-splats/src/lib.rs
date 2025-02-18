@@ -4,12 +4,9 @@ pub mod texture_gen;
 use js_sys::{Float32Array, Object, Uint32Array, Uint8Array};
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
-
-//Wrapper func. Most are called directly
+/// Generate a splat texture from the given attributes.
+///
+/// Wraps the [`texture_gen::generate_texture_from_attrs`] function for access from JavaScript.
 #[wasm_bindgen]
 pub fn generate_splat_texture_from_attrs(
     positions: &Float32Array,

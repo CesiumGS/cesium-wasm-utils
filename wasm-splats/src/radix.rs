@@ -1,13 +1,14 @@
 use js_sys::{Float32Array, Uint32Array};
 use wasm_bindgen::prelude::*;
 
+/// Sorts the Gaussian Splats by depth using a radix sort.
 #[wasm_bindgen]
 pub fn radix_sort_gaussians_indexes(
     positions: &Float32Array,
     model_view: &Float32Array,
     _texture_width: u32, // TODO: FIGURE OUT IF THIS IS NEEDED.
     count: usize,
-) -> Result<js_sys::Uint32Array, JsValue> {
+) -> Result<Uint32Array, JsValue> {
     if positions.length() as usize != count * 3 {
         return Err(JsValue::from_str("Invalid positions length"));
     }

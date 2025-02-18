@@ -1,30 +1,38 @@
 use js_sys::{Float32Array, Uint8Array};
 use wasm_bindgen::prelude::*;
 
+/// Represents a texture data object.
 #[wasm_bindgen]
 pub struct TextureData {
+    /// The texture data.
     data: Vec<u32>,
+    /// Width of the texture in pixels.
     width: u32,
+    /// Height of the texture in pixels.
     height: u32,
 }
 
 #[wasm_bindgen]
 impl TextureData {
+    /// Getter for the underlying texture data. Always returns a copy.
     #[wasm_bindgen(getter)]
     pub fn data(&self) -> Vec<u32> {
         self.data.clone()
     }
 
+    /// Getter for the width of the texture in pixels.
     #[wasm_bindgen(getter)]
     pub fn width(&self) -> u32 {
         self.width
     }
 
+    /// Getter for the height of the texture in pixels.
     #[wasm_bindgen(getter)]
     pub fn height(&self) -> u32 {
         self.height
     }
 
+    /// Creates a new texture data object with the underlying data, width, and height.
     pub fn new(data: Vec<u32>, width: u32, height: u32) -> Self {
         TextureData {
             data,
@@ -34,9 +42,10 @@ impl TextureData {
     }
 }
 
-//Algorithm from ILM
-//https://github.com/mitsuba-renderer/openexr/blob/master/IlmBase/Half/half.cpp
+/// Converts a 32-bit float to a 16-bit integer.
 fn float_to_half(f: f32) -> i16 {
+    //Algorithm from ILM
+    //https://github.com/mitsuba-renderer/openexr/blob/master/IlmBase/Half/half.cpp
     let f_int = f.to_bits() as i32;
     let sign = (f_int >> 16) & 0x00008000;
     let mut exp = ((f_int >> 23) & 0x000000ff) - (127 - 15);
@@ -78,6 +87,7 @@ fn float_to_half(f: f32) -> i16 {
     (sign | (exp << 10) | (frac >> 13)) as i16
 }
 
+/// Generates a texture from the given attributes.
 #[wasm_bindgen]
 pub fn generate_texture_from_attrs(
     positions: &Float32Array,
