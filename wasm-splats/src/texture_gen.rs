@@ -1,46 +1,6 @@
 use js_sys::{Float32Array, Uint8Array};
 use wasm_bindgen::prelude::*;
-
-/// Represents a texture data object.
-#[wasm_bindgen]
-pub struct TextureData {
-    /// The texture data.
-    data: Vec<u32>,
-    /// Width of the texture in pixels.
-    width: u32,
-    /// Height of the texture in pixels.
-    height: u32,
-}
-
-#[wasm_bindgen]
-impl TextureData {
-    /// Getter for the underlying texture data. Always returns a copy.
-    #[wasm_bindgen(getter)]
-    pub fn data(&self) -> Vec<u32> {
-        self.data.clone()
-    }
-
-    /// Getter for the width of the texture in pixels.
-    #[wasm_bindgen(getter)]
-    pub fn width(&self) -> u32 {
-        self.width
-    }
-
-    /// Getter for the height of the texture in pixels.
-    #[wasm_bindgen(getter)]
-    pub fn height(&self) -> u32 {
-        self.height
-    }
-
-    /// Creates a new texture data object with the underlying data, width, and height.
-    pub fn new(data: Vec<u32>, width: u32, height: u32) -> Self {
-        TextureData {
-            data,
-            width,
-            height,
-        }
-    }
-}
+use crate::models::TextureData;
 
 /// Converts a 32-bit float to a 16-bit integer.
 fn float_to_half(f: f32) -> i16 {
@@ -88,7 +48,6 @@ fn float_to_half(f: f32) -> i16 {
 }
 
 /// Generates a texture from the given attributes.
-#[wasm_bindgen]
 pub fn generate_texture_from_attrs(
     positions: &Float32Array,
     scales: &Float32Array,
@@ -172,9 +131,5 @@ pub fn generate_texture_from_attrs(
             | ((float_to_half(4.0 * sigma[5]) as u32 & 0xFFFF) << 16);
     }
 
-    Ok(TextureData {
-        data: tex_data,
-        width: tex_width,
-        height: tex_height,
-    })
+    Ok(TextureData::new(tex_data, tex_width, tex_height))
 }
