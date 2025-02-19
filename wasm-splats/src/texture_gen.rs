@@ -1,6 +1,8 @@
+//! Generates textures for use within the Gaussian Splat shaders in CesiumJS.
+
+use crate::models::TextureData;
 use js_sys::{Float32Array, Uint8Array};
 use wasm_bindgen::prelude::*;
-use crate::models::TextureData;
 
 /// Converts a 32-bit float to a 16-bit integer.
 fn float_to_half(f: f32) -> i16 {

@@ -40,8 +40,7 @@ fn test_radix_sort_gaussians_indexes() {
     let count = test_data.get_count();
     let sorted_idx = test_data.get_sorted_idx();
 
-    let result =
-        radix_sort_gaussians_indexes(&positions, &model_view, count).unwrap();
+    let result = radix_sort_gaussians_indexes(&positions, &model_view, count).unwrap();
 
     check_uint32array(&result, sorted_idx.as_ref()).unwrap();
 }

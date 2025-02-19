@@ -1,3 +1,5 @@
+//! Radix sort implementation for sorting Gaussian Splats.
+
 use js_sys::{Float32Array, Uint32Array};
 use wasm_bindgen::prelude::*;
 

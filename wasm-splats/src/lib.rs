@@ -1,10 +1,12 @@
+//! Library containing high-performance functions for the Gaussian Splats rendering process within CesiumJS.
+
 pub mod models;
 pub mod radix;
 pub mod texture_gen;
 
+use crate::models::TextureData;
 use js_sys::{Float32Array, Uint32Array, Uint8Array};
 use wasm_bindgen::prelude::*;
-use crate::models::TextureData;
 
 /// Generate a splat texture from the given attributes.
 ///
@@ -21,7 +23,7 @@ pub fn generate_splat_texture(
 }
 
 /// Sorts the Gaussian Splats by depth using a radix sort.
-/// 
+///
 /// Wraps the [`radix::radix_sort_gaussians_indexes`] function for access from JavaScript.
 #[wasm_bindgen]
 pub fn radix_sort_gaussians_indexes(
