@@ -84,7 +84,6 @@ impl GenerateSplatTextureTestData {
 pub struct SortGaussianIndexesTestData {
     in_positions: Float32Array,
     in_model_view: Float32Array,
-    in_texture_width: u32,
     in_count: usize,
     out_sorted_idx: Vec<u32>,
 }
@@ -109,7 +108,6 @@ impl SortGaussianIndexesTestData {
         Ok(Self {
             in_positions: positions,
             in_model_view: model_view,
-            in_texture_width: 0,
             in_count: input_data.idx_count,
             out_sorted_idx: sorted_idx,
         })
@@ -121,10 +119,6 @@ impl SortGaussianIndexesTestData {
 
     pub fn get_model_view(&self) -> Float32Array {
         self.in_model_view.clone()
-    }
-
-    pub fn get_texture_width(&self) -> u32 {
-        self.in_texture_width
     }
 
     pub fn get_count(&self) -> usize {
