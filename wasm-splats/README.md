@@ -1,6 +1,9 @@
 # wasm-splats
 
-The `wasm-splats` package contains high-performance algorithms used in the rendering Gaussian Splats in CesiumJS.
+[![wasm-splats CI](https://github.com/CesiumGS/cesium-wasm-utils/actions/workflows/wasm-splats-ci.yml/badge.svg)](https://github.com/CesiumGS/cesium-wasm-utils/actions/workflows/wasm-splats-ci.yml)
+[![npm](https://img.shields.io/npm/v/@cesium/wasm-splats)](https://www.npmjs.com/package/@cesium/wasm-splats)
+
+The `wasm-splats` package contains high-performance algorithms used in the rendering of Gaussian Splats in CesiumJS.
 
 ## Getting Started
 

@@ -1,4 +1,3 @@
-# If you're adding a new package, you'll need to duplicate this workflow for it.
 name: wasm-splats CI
 on:
   push:
@@ -54,7 +53,3 @@ jobs:
 
       - name: Build wasm-splats
         run: wasm-pack build ./wasm-splats --release --target web --scope cesium
-
-# TODO: Get rid of this when I no longer need it.
-#      - name: Pack wasm-splats
-#        run: wasm-pack publish ./wasm-splats/pkg

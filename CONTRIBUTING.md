@@ -20,7 +20,7 @@ If a related issue does not exist, submit a new one. Please be concise and inclu
 - Screenshot or animated .gif if appropriate (try [LICEcap](http://www.cockos.com/licecap/)). For example, see [#3153](https://github.com/CesiumGS/cesium/issues/3153) in CesiumJS. Screenshots are particularly useful for exceptions and rendering artifacts. If it is a rendering artifact, also include the output of [webglreport.com](http://webglreport.com/).
 - Link to the thread if this was discussed on the Cesium forum or elsewhere. For example, see [#3045](https://github.com/CesiumGS/cesium/issues/3045) in CesiumJS.
 - Your operating system and version, browser and version, and video card. Are they all up-to-date? Is the issue specific to one of them?
-- The version of Cesium. Did this work in a previous version?
+- The version of CesiumJS. Did this work in a previous version?
 - Ideas for how to fix or workaround the issue. Also mention if you are willing to help fix it. If so, the Cesium team can often provide guidance and the issue may get fixed more quickly with your help.
 
 ## Getting Started Contributing

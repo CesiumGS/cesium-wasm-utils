@@ -1,6 +1,6 @@
 [package]
 name = "wasm-splats"
-version = "0.1.0-alpha"
+version = "0.1.0-alpha.1"
 authors = ["Cesium GS, Inc. <https://cesium.com>"]
 edition = "2021"
 

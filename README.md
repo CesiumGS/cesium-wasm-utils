@@ -16,7 +16,7 @@ the [CesiumJS README](https://github.com/CesiumGS/cesium/blob/main/README.md).
 
 ## Packages in this Repository
 
-- [wasm-splats](wasm-splats/README.md): High-performance algorithms used in the rendering Gaussian Splats in CesiumJS.
+- [wasm-splats](wasm-splats/README.md): High-performance algorithms used in the rendering of Gaussian Splats in CesiumJS.
 
 # Get Started
 
