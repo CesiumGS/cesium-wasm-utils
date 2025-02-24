@@ -3,6 +3,10 @@ name = "wasm-splats"
 version = "0.1.0-alpha.1"
 authors = ["Cesium GS, Inc. <https://cesium.com>"]
 edition = "2021"
+homepage = "https://cesium.com/cesiumjs/"
+repository = "https://github.com/CesiumGS/cesium-wasm-utils"
+description = "Contains high-performance algorithms used in the rendering of Gaussian Splats in CesiumJS."
+license = "Apache-2.0"
 
 [lib]
 crate-type = ["cdylib", "rlib"]

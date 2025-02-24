@@ -12,7 +12,7 @@ To ensure an inclusive community, contributors and users in the Cesium community
 
 If you have a question, do not submit an issue; instead, search the [Cesium community forum](https://community.cesium.com/). The forum is very active and there are years of informative archives, often with answers from the core Cesium team. If you do not find an answer to your question, start a new thread, and you'll likely get a quick response.
 
-If you think you've found a bug in Cesium WASM Utilities, first search the [issues](https://github.com/CesiumGS/cesium/issues). If an issue already exists, please add a comment expressing your interest and any additional information. This helps us prioritize issues.
+If you think you've found a bug in Cesium WASM Utilities, first search the [issues](https://github.com/CesiumGS/cesium-wasm-utils/issues). If an issue already exists, please add a comment expressing your interest and any additional information. This helps us prioritize issues.
 
 If a related issue does not exist, submit a new one. Please be concise and include as much of the following information as is relevant:
 
@@ -31,17 +31,12 @@ In addition to contributing core Cesium WASM Utilities code, we appreciate many 
 
 - Being active on the [Cesium community forum](https://community.cesium.com/) by answering questions and providing input on Cesium's direction.
 - Showcasing your Cesium apps on [Cesium blog](https://cesium.com/blog/categories/userstories/). Contact us at hello@cesium.com.
-- Writing tutorials, creating examples, and improving the reference documentation. See the issues labeled [category - doc](https://github.com/CesiumGS/cesium/labels/category%20-%20doc).
+- Writing tutorials, creating examples, and improving the reference documentation.
 - Submitting issues as [described above](#submitting-an-issue).
-- Triaging issues. Browse the [issues](https://github.com/CesiumGS/cesium/issues) and comment on issues that are no longer reproducible or on issues which you have additional information.
+- Triaging issues. Browse the [issues](https://github.com/CesiumGS/cesium-wasm-utils/issues) and comment on issues that are no longer reproducible or on issues which you have additional information.
 - Creating ecosystem projects for [glTF](https://github.com/KhronosGroup/glTF/issues/456), [CZML](https://github.com/CesiumGS/cesium/wiki/CZML-Guide), and [3D Tiles](https://github.com/CesiumGS/3d-tiles).
 
-For ideas for Cesium WASM Utilities code contributions, see:
-
-- issues labeled [`good first issue`](https://github.com/CesiumGS/cesium/labels/good%20first%20issue) and
-- issues labeled [`type - roadmap`](https://github.com/CesiumGS/cesium/labels/type%20-%20roadmap).
-
-See the [README](README.md) for how to build and run Cesium on your system.
+See the [README](README.md) for how to build and run on your system.
 
 Always feel free to introduce yourself on the [Cesium community forum](https://community.cesium.com/) to brainstorm ideas and ask for guidance.
 
