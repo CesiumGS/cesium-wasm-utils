@@ -1,0 +1,6 @@
+# You may be asking, "wait, why is this here and not in the pacakge directories?"
+# As of January 2025, [per-package targets](https://github.com/rust-lang/cargo/issues/9406) hasn't hit stable Rust. Once that hits, we can move this back into the package directories.
+# Issue for our tracking: https://github.com/CesiumGS/cesium-wasm-utils/issues/2
+
+[build]
+target = "wasm32-unknown-unknown"

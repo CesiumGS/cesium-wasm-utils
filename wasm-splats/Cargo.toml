@@ -1,0 +1,38 @@
+[package]
+name = "wasm-splats"
+version = "0.1.0-alpha.1"
+authors = ["Cesium GS, Inc. <https://cesium.com>"]
+edition = "2021"
+homepage = "https://cesium.com/cesiumjs/"
+repository = "https://github.com/CesiumGS/cesium-wasm-utils"
+description = "Contains high-performance algorithms used in the rendering of Gaussian Splats in CesiumJS."
+license = "Apache-2.0"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["console_error_panic_hook"]
+
+[dependencies]
+wasm-bindgen = "0.2.99"
+js-sys = "0.3.76"
+web-sys = { version = "0.3.76", features = ["console"] }
+
+# The `console_error_panic_hook` crate provides better debugging of panics by
+# logging them with `console.error`. This is great for development, but requires
+# all the `std::fmt` and `std::panicking` infrastructure, so isn't great for
+# code size when deploying.
+console_error_panic_hook = { version = "0.1.7", optional = true }
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Typically we wouldn't include profiles in a workspace project like this, but `wasm-pack` doesn't support workspaces yet.
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+opt-level = 3
+lto = true
+codegen-units = 1
