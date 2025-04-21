@@ -1,17 +1,15 @@
 //! Test suite for the Web and headless browsers.
 
 #![cfg(target_arch = "wasm32")]
+extern crate wasm_bindgen_test;
 mod common;
 
-extern crate wasm_bindgen_test;
-
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
-use wasm_bindgen::prelude::wasm_bindgen;
-use crate::common::test_utils::check_uint32array;
-// use crate::common::wasm_utils::{translate_time, console_log};
+use crate::common::test_utils::{check_uint32array, log};
 use common::test_data;
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use wasm_bindgen_test::*;
-use wasm_splats::radix::radix_sort_gaussians_indexes;
+use wasm_splats::radix_sort_gaussians_indexes as wasm_radix_sort_gaussians_indexes;
+use wasm_splats::radix::radix_sort_gaussians_indexes as radix_sort_gaussians_indexes;
 use wasm_splats::texture_gen::generate_texture_from_attrs;
 
 wasm_bindgen_test_configure!(run_in_browser);
@@ -44,46 +42,42 @@ fn test_radix_sort_gaussians_indexes() {
     let count = test_data.get_count();
     let sorted_idx = test_data.get_sorted_idx();
 
-    let result = radix_sort_gaussians_indexes(&positions, &model_view, count).unwrap();
+    let result = wasm_radix_sort_gaussians_indexes(&positions, &model_view, count).unwrap();
 
     check_uint32array(&result, sorted_idx.as_ref()).unwrap();
 }
 
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(message: &str);
-}
-
-macro_rules! console_log {
-    ($($t:tt)*) => {log(&format_args!($($t)*).to_string())};
-}
-
-pub fn translate_time(perf_time: f64) -> SystemTime {
-    let seconds = (perf_time as u64) / 1000;
-    let nanoseconds = (((perf_time as u64) % 1000) as u32) * 1000000;
-    UNIX_EPOCH + Duration::new(seconds, nanoseconds)
-}
-
+#[ignore]
 #[wasm_bindgen_test]
 fn test_radix_sort_performance() {
     let window = web_sys::window().expect("Window expected in this context.");
-    let perf = window.performance().expect("Performance object unavailable.");
+    let perf = window
+        .performance()
+        .expect("Performance object unavailable.");
 
-    fn test_case() {
-        let test_data = test_data::SortGaussianIndexesTestData::new().unwrap();
-        let positions = test_data.get_positions();
-        let model_view = test_data.get_model_view();
-        let count = test_data.get_count();
-
-        let _result = radix_sort_gaussians_indexes(&positions, &model_view, count).unwrap();
+    pub fn translate_time(perf_time: f64) -> SystemTime {
+        let seconds = (perf_time as u64) / 1000;
+        let nanoseconds = (((perf_time as u64) % 1000) as u32) * 1000000;
+        UNIX_EPOCH + Duration::new(seconds, nanoseconds)
     }
 
-    let start = translate_time(perf.now());
+    let test_data = test_data::SortGaussianIndexesTestData::new().unwrap();
+    let positions = test_data.get_positions().to_vec();
+    let model_view = test_data.get_model_view().to_vec();
+    let count = test_data.get_count();
+
+    let test_case = || {
+        let _result = radix_sort_gaussians_indexes(&positions, &model_view, count).unwrap();
+    };
+
+    let start = perf.now();
     for _ in 0..100 {
         test_case();
     }
-    let end = translate_time(perf.now());
-    let elapsed = end.duration_since(start).expect("It's a time machine, Marty!");
-    console_log!("Elapsed Perf Testing Time: {:?}", elapsed);
+    let end = perf.now();
+
+    let elapsed = translate_time(end)
+        .duration_since(translate_time(start))
+        .expect("It's a time machine, Marty!");
+    log(&format_args!("Elapsed Perf Testing Time: {:?}", elapsed));
 }

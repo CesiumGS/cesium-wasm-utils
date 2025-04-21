@@ -1,36 +1,36 @@
 //! Radix sort implementation for sorting Gaussian Splats.
 
-use js_sys::{Float32Array, Uint32Array};
 use wasm_bindgen::prelude::*;
 
 /// Sorts the Gaussian Splats by depth using a radix sort. Uses SIMD through autovectorization
 /// on WASM targets.
 #[cfg_attr(target_family = "wasm", target_feature(enable = "simd128"))]
 pub fn radix_sort_gaussians_indexes(
-    positions: &Float32Array,
-    model_view: &Float32Array,
+    positions: &[f32],
+    model_view: &[f32],
     count: usize,
-) -> Result<Uint32Array, JsValue> {
-    if positions.length() as usize != count * 3 {
+) -> Result<Vec<u32>, JsValue> {
+    if positions.len() != count * 3 {
         return Err(JsValue::from_str("Invalid positions length"));
     }
-    if model_view.length() != 16 {
+    if model_view.len() != 16 {
         return Err(JsValue::from_str("Invalid model_view length"));
     }
 
-    let positions_vec = positions.to_vec();
-    let model_view_vec = model_view.to_vec();
     let mut depth_values = vec![0i32; count];
     let mut max_depth = f32::NEG_INFINITY;
     let mut min_depth = f32::INFINITY;
 
-    for i in 0..count {
-        let depth = positions_vec[i * 3] * model_view_vec[2]
-            + positions_vec[i * 3 + 1] * model_view_vec[6]
-            + positions_vec[i * 3 + 2] * model_view_vec[10];
+    let mv2 = model_view[2];
+    let mv6 = model_view[6];
+    let mv10 = model_view[10];
+
+    for (i, depth_value) in depth_values.iter_mut().enumerate() {
+        let depth =
+            positions[i * 3] * mv2 + positions[i * 3 + 1] * mv6 + positions[i * 3 + 2] * mv10;
 
         let depth_int = (depth * 4096.0) as i32;
-        depth_values[i] = depth_int;
+        *depth_value = depth_int;
         max_depth = max_depth.max(depth_int as f32);
         min_depth = min_depth.min(depth_int as f32);
     }
@@ -47,15 +47,15 @@ pub fn radix_sort_gaussians_indexes(
     for shift in (0..32).step_by(8) {
         let mut counts = [0u32; 256];
 
-        for &depth in depth_values.iter() {
+        for &depth in &depth_values {
             let byte = ((depth >> shift) & 0xFF) as usize;
             counts[byte] += 1;
         }
 
         let mut total = 0;
-        for count in counts.iter_mut() {
-            let current = *count;
-            *count = total;
+        for i in 0..counts.len() {
+            let current = counts[i];
+            counts[i] = total;
             total += current;
         }
 
@@ -72,8 +72,5 @@ pub fn radix_sort_gaussians_indexes(
         indices.copy_from_slice(&temp_indices);
     }
 
-    let indices_array = Uint32Array::new_with_length(count as u32);
-    indices_array.copy_from(&indices);
-
-    Ok(indices_array)
+    Ok(indices)
 }
