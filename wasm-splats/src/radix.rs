@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::*;
 
 /// Sorts the Gaussian Splats by depth using a radix sort. Uses SIMD through autovectorization
 /// on WASM targets.
+#[allow(clippy::needless_range_loop)] // Range loops are used for SIMD optimization.
 #[cfg_attr(target_family = "wasm", target_feature(enable = "simd128"))]
 pub fn radix_sort_gaussians_indexes(
     positions: &[f32],
