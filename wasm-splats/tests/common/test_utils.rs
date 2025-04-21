@@ -1,5 +1,5 @@
-use std::fmt;
 use js_sys::Uint32Array;
+use std::fmt;
 
 pub fn check_uint32array(
     array: &Uint32Array,

@@ -8,8 +8,8 @@ use crate::common::test_utils::{check_uint32array, log};
 use common::test_data;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use wasm_bindgen_test::*;
+use wasm_splats::radix::radix_sort_gaussians_indexes;
 use wasm_splats::radix_sort_gaussians_indexes as wasm_radix_sort_gaussians_indexes;
-use wasm_splats::radix::radix_sort_gaussians_indexes as radix_sort_gaussians_indexes;
 use wasm_splats::texture_gen::generate_texture_from_attrs;
 
 wasm_bindgen_test_configure!(run_in_browser);
