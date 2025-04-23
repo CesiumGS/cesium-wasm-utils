@@ -27,9 +27,15 @@ pub fn generate_splat_texture(
 /// Wraps the [`radix::radix_sort_gaussians_indexes`] function for access from JavaScript.
 #[wasm_bindgen]
 pub fn radix_sort_gaussians_indexes(
-    positions: &Float32Array,
-    model_view: &Float32Array,
+    positions_arr: &Float32Array,
+    model_view_arr: &Float32Array,
     count: usize,
 ) -> Result<Uint32Array, JsValue> {
-    radix::radix_sort_gaussians_indexes(positions, model_view, count)
+    let positions = positions_arr.to_vec();
+    let model_view = model_view_arr.to_vec();
+
+    let indices = radix::radix_sort_gaussians_indexes(&positions, &model_view, count)?;
+
+    let indices_array = Uint32Array::from(&indices[..]);
+    Ok(indices_array)
 }
